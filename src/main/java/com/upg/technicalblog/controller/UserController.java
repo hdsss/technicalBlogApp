@@ -10,26 +10,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 @Controller
-public class HomeController {
-
-    public HomeController() {
-        System.out.println("*** HomeController ***");
-    }
-
+public class UserController {
     @Autowired
     private PostService postService;
 
+    @RequestMapping("users/login")
+    public String login(){
+        return "users/login";
+    }
 
+    @RequestMapping("users/register")
+    public String register(){
+        return "users/register";
+    }
 
-
-
-    @RequestMapping("/")
-    public  String getAllPosts(Model model){
+    @RequestMapping(value="users/logout", method = RequestMethod.POST)
+    public String logout(Model model){
         ArrayList<Post> posts = postService.getAllPosts();
         model.addAttribute("posts", posts);
         return "blogindex";
     }
+
+    @RequestMapping(value="users/login", method = RequestMethod.POST)
+    public String loginuser(User user){
+        return "redirect:/posts";
+    }
+
 }

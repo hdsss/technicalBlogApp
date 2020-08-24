@@ -1,35 +1,23 @@
 package com.upg.technicalblog.controller;
 
 import com.upg.technicalblog.model.Post;
-import com.upg.technicalblog.model.User;
 import com.upg.technicalblog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 @Controller
-public class HomeController {
-
-    public HomeController() {
-        System.out.println("*** HomeController ***");
-    }
-
+public class PostController {
     @Autowired
     private PostService postService;
 
-
-
-
-
-    @RequestMapping("/")
-    public  String getAllPosts(Model model){
-        ArrayList<Post> posts = postService.getAllPosts();
+    @RequestMapping("posts")
+    public String getUserPosts(Model model){
+        ArrayList<Post> posts = postService.getOnePost();
         model.addAttribute("posts", posts);
-        return "blogindex";
+        return "posts";
     }
 }
